@@ -2,7 +2,7 @@
 :root{--bg:#0b1f3a;--coral2:#c79a3b;--g:#8a6a1f;--gold2:#d9c28a;--card:#ffffff;--line:#e3e6ec;--mut:#8a93a3;--sh:0 10px 30px rgba(15,25,45,.10)}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;-webkit-tap-highlight-color:transparent}
 body{background:#f2f4f8}
-.wrap{max-width:520px;margin:0 auto;padding:0 14px 90px}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 24px}
 header{background:linear-gradient(150deg,#122c52,#0b1f3a 65%);color:#fff;padding:22px 16px 18px;border-radius:0 0 20px 20px;box-shadow:var(--sh)}
 header .t{font-size:19px;font-weight:900;letter-spacing:-.5px}
 header .s{font-size:12.5px;color:#cfd9ea;margin-top:5px;font-weight:600}
@@ -33,7 +33,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
 .stepper button{width:44px;height:44px;border-radius:13px;border:1.5px solid var(--line);background:#fff;font-size:20px;font-weight:800;color:var(--bg);cursor:pointer;font-family:inherit}
 .stepper .val{flex:1;text-align:center;font-size:15px;font-weight:800;color:var(--bg)}
 .int{margin-top:12px;background:linear-gradient(135deg,#fdf9ef,#faf3e2);border:1.5px solid var(--gold2);border-radius:13px;padding:12px 14px;font-size:13px;font-weight:800;color:#4a4234}
-.btns{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1.5px solid var(--line);padding:10px 14px;display:flex;gap:8px;z-index:50}
 .btns button{flex:1;border:0;border-radius:14px;padding:15px 4px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;transition:.15s}
 .btns button:active{transform:scale(.96)}
 .b1{background:#eef1f6;color:var(--bg)}.b2{background:#fff;border:1.5px solid var(--gold2)!important;color:var(--g)}.b3{background:linear-gradient(135deg,#f6d365,#d9a32a);color:#3d2c00}
@@ -56,10 +55,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
 .shbtnrow button:active{transform:scale(.96)}
 .sh-k{background:#3d1e0f}.sh-s{background:#1f5f3d}.sh-m{background:#1f3d5f}
 .note{font-size:10.5px;color:var(--mut);margin-top:10px;line-height:1.7;font-weight:500}
-.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(10px);background:#1c2733;color:#fff;font-size:13px;font-weight:700;padding:11px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:.25s;z-index:99;white-space:nowrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(10px);background:#1c2733;color:#fff;font-size:13px;font-weight:700;padding:11px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:.25s;z-index:99;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 footer{text-align:center;font-size:10.5px;color:var(--mut);margin-top:20px;line-height:1.7;font-weight:500}
-@media print{.btns,.toast,.sh-btns,header .s,.addrow{display:none!important}body{background:#fff}.sheet{display:block!important;margin:0;border:0;border-radius:0;box-shadow:none}.card{box-shadow:none;border:0}.wrap{max-width:100%;padding:0}}
+@media print{.toast,.sh-btns,header .s,.addrow{display:none!important}body{background:#fff}.sheet{display:block!important;margin:0;border:0;border-radius:0;box-shadow:none}.card{box-shadow:none;border:0}.wrap{max-width:100%;padding:0}}
 </style></head><body>
 <header><div class="t">현대·제네시스 신차 견적</div><div class="s">담당 김쏘나타 · ☎ 12345</div></header>
 <div class="wrap">
@@ -69,7 +68,7 @@ footer{text-align:center;font-size:10.5px;color:var(--mut);margin-top:20px;line-
     <div class="frow"><select id="ext" class="multi" onchange="render()"></select><select id="int" class="multi" onchange="render()"></select></div>
   </div>
   <div class="card"><div class="ct">⚙️ 선택 옵션</div><div id="optBox"></div>
-    <div class="addrow"><input id="optName" placeholder="기타 옵션명 직접 입력"><input id="optPrice" class="n" inputmode="numeric" placeholder="만원"><button onclick="addOpt()">추가</button></div>
+    <div class="addrow"><input id="optName" placeholder="기타 옵션명 직접 입력"><input id="optPrice" class="n" inputmode="numeric" placeholder="금액(원)"><button onclick="addOpt()">추가</button></div>
   </div>
   <div class="card"><div class="ct">💰 견적 요약</div><div id="sum"></div>
     <div class="sl"><div class="lab"><span>선수금 비율</span><b id="dpLab">20%</b></div><input type="range" id="dp" min="10" max="90" step="5" value="20" oninput="sync('dp')">
@@ -104,43 +103,19 @@ footer{text-align:center;font-size:10.5px;color:var(--mut);margin-top:20px;line-
   </div>
   <footer>현대·제네시스 신차 견적 · 김쏘나타 ☎ 12345<br>본 서비스는 견적 안내용이며 현대자동차 공식 채널이 아닙니다.</footer>
 </div>
-<div class="btns"><button class="b1" onclick="copyQuote()">복사</button><button class="b2" onclick="showSheet()">상세 견적서</button><button class="b3" onclick="shareKakao()">카톡 전송</button></div>
 <div class="toast" id="toast"></div>
 <script>
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js")}
-var MODELS=[
-{b:"현대",n:"쏘나타 디 엣지",trims:[["프리미엄",2876],["하이브리드",3328]],opts:[["선루프",120]]},
-{b:"현대",n:"디 올 뉴 아반떼",trims:[["기본",2398]],opts:[]},
-{b:"현대",n:"아반떼 N",trims:[["기본",3356]],opts:[]},
-{b:"현대",n:"그랜저 (2026년형)",trims:[["가솔린 프리미엄",3798],["가솔린 익스클루시브",4287],["가솔린 아너스",4513],["가솔린 캘리그래피",4710],["하이브리드 프리미엄",4354],["하이브리드 익스클루시브",4843],["하이브리드 아너스",5069],["하이브리드 캘리그래피",5266]],opts:[["파노라마 선루프",119],["헤드업 디스플레이",99]]},
-{b:"현대",n:"팰리세이드",trims:[["가솔린",4478],["하이브리드 익스클루시브",5077]],opts:[]},
-{b:"현대",n:"투싼",trims:[["기본",2844]],opts:[]},
-{b:"현대",n:"코나",trims:[["기본",2393]],opts:[]},
-{b:"현대",n:"베뉴",trims:[["기본",1994]],opts:[]},
-{b:"현대",n:"캐스퍼",trims:[["스마트",1493],["디 에센셜",1771],["인스퍼레이션",2017],["밴 스마트",1460]],opts:[["선루프",40],["인포테인먼트 내비 플러스Ⅱ",130],["컴포트Ⅱ",60]]},
-{b:"현대",n:"캐스퍼 일렉트릭",trims:[["기본",2847]],opts:[]},
-{b:"현대",n:"아이오닉 5",trims:[["기본",4735]],opts:[]},
-{b:"현대",n:"아이오닉 5 N",trims:[["기본",7879]],opts:[]},
-{b:"현대",n:"더 뉴 아이오닉 6",trims:[["기본",4856]],opts:[]},
-{b:"현대",n:"아이오닉 6 N",trims:[["기본",7990]],opts:[]},
-{b:"현대",n:"아이오닉 9",trims:[["익스클루시브 7인승",6759],["프레스티지 7인승",7325],["캘리그래피 7인승",7811]],opts:[]},
-{b:"현대",n:"넥쏘",trims:[["기본",7647]],opts:[]},
-{b:"현대",n:"스타리아",trims:[["스마트",3502],["라운지 9인승 프레스티지",4499],["라운지 9인승 인스퍼레이션",4876],["라운지 7인승 인스퍼레이션",5098]],opts:[]},
-{b:"현대",n:"포터 II (1톤 LPG)",trims:[["스마트",2152],["모던",2257],["프리미엄",2380]],opts:[]},
-{b:"제네시스",n:"G70",trims:[["2.5 터보",4438],["3.3 터보",4925],["슈팅 브레이크 2.5T",4633]],opts:[]},
-{b:"제네시스",n:"G80",trims:[["2.5 터보",5978],["스포츠 패키지 2.5T",6372]],opts:[]},
-{b:"제네시스",n:"G90 (약, 1억 원대 시작)",trims:[["기본",10000]],opts:[]},
-{b:"제네시스",n:"GV70",trims:[["가솔린",5473]],opts:[]},
-{b:"제네시스",n:"GV80",trims:[["2.5 터보 2WD",6790],["3.5 터보",7332]],opts:[]}];
+var MODELS=[{b:"현대",n:"쏘나타 디 엣지",trims:[["프리미엄",2876],["하이브리드",3328]],opts:[["선루프",1200000]]},{b:"현대",n:"디 올 뉴 아반떼",trims:[["기본",2398]],opts:[]},{b:"현대",n:"아반떼 N",trims:[["기본",3356]],opts:[]},{b:"현대",n:"그랜저 (2026년형)",trims:[["가솔린 프리미엄",3798],["가솔린 익스클루시브",4287],["가솔린 아너스",4513],["가솔린 캘리그래피",4710],["하이브리드 프리미엄",4354],["하이브리드 익스클루시브",4843],["하이브리드 아너스",5069],["하이브리드 캘리그래피",5266]],opts:[["파노라마 선루프",1190000],["헤드업 디스플레이",990000],["파킹 어시스트",1430000],["현대 스마트센스Ⅰ",840000],["컨비니언스",600000],["플래티넘",1290000],["현대 스마트센스Ⅱ플러스",1350000],["BOSE 프리미엄 사운드 패키지",1190000],["프리뷰 전자제어 서스펜션Ⅰ",1290000],["프리뷰 전자제어 서스펜션Ⅱ",1290000],["2열 전동식 도어커튼",490000]]},{b:"현대",n:"팰리세이드",trims:[["가솔린",4478],["하이브리드 익스클루시브",5077]],opts:[["디젤 2.2 엔진",1480000],["듀얼 와이드 선루프",890000],["빌트인 캠",690000],["주차보조 시스템Ⅰ",1680000],["컴포트Ⅰ",890000],["컨비니언스",790000],["2열 통풍시트",400000],["주차보조 시스템Ⅱ",690000],["컴포트Ⅱ",1090000],["현대스마트센스Ⅰ",790000],["KRELL 사운드 패키지",690000],["VIP패키지",5740000]]},{b:"현대",n:"투싼",trims:[["기본",2844]],opts:[]},{b:"현대",n:"코나",trims:[["기본",2393]],opts:[]},{b:"현대",n:"베뉴",trims:[["기본",1994]],opts:[]},{b:"현대",n:"캐스퍼",trims:[["스마트",1493],["디 에센셜",1771],["인스퍼레이션",2017],["밴 스마트",1460]],opts:[["선루프",400000],["인포테인먼트 내비 플러스Ⅱ",1300000],["컴포트Ⅱ",600000]]},{b:"현대",n:"캐스퍼 일렉트릭",trims:[["기본",2847]],opts:[]},{b:"현대",n:"아이오닉 5",trims:[["기본",4735]],opts:[]},{b:"현대",n:"아이오닉 5 N",trims:[["기본",7879]],opts:[]},{b:"현대",n:"더 뉴 아이오닉 6",trims:[["기본",4856]],opts:[]},{b:"현대",n:"아이오닉 6 N",trims:[["기본",7990]],opts:[]},{b:"현대",n:"아이오닉 9",trims:[["익스클루시브 7인승",6759],["프레스티지 7인승",7325],["캘리그래피 7인승",7811]],opts:[["HTRACⅠ",2800000],["HTRACⅡ",3700000],["파노라마 선루프",1190000],["빌트인 캠 2",590000],["사이드스텝",450000],["파킹 어시스트",1350000],["BOSE 프리미엄 사운드",1190000],["7인승 컨비니언스 플러스",600000],["21인치 휠 & 타이어",1000000],["플래티넘",1100000],["컴포트 플러스",630000],["블랙잉크",400000],["6인승 컨비니언스 플러스",400000]]},{b:"현대",n:"넥쏘",trims:[["기본",7647]],opts:[]},{b:"현대",n:"스타리아",trims:[["스마트",3502],["라운지 9인승 프레스티지",4499],["라운지 9인승 인스퍼레이션",4876],["라운지 7인승 인스퍼레이션",5098]],opts:[["HTRAC(9인승)",1950000],["HTRAC(7인승)",1980000],["듀얼 와이드 선루프(9인승)",850000],["듀얼 와이드 선루프(7인승)",890000],["스마트",1100000],["컴포트Ⅰ",1200000],["컴포트Ⅱ",500000],["테크Ⅰ",2200000],["테크Ⅱ",1250000],["BOSE 프리미엄 사운드",600000],["빌트인 캠(보조배터리 포함)",560000],["스태리 스카이",1830000],["무버블 콘솔",3090000],["BOSE 프리미엄 사운드",640000],["빌트인 캠(보조배터리 포함)",590000],["컴포트Ⅱ",520000],["스태리 스카이",1930000],["무버블 콘솔",3000000]]},{b:"현대",n:"포터 II (1톤 LPG)",trims:[["스마트",2152],["모던",2257],["프리미엄",2380]],opts:[]},{b:"제네시스",n:"G70",trims:[["2.5 터보",4438],["3.3 터보",4925],["슈팅 브레이크 2.5T",4633]],opts:[]},{b:"제네시스",n:"G80",trims:[["2.5 터보",5978],["스포츠 패키지 2.5T",6372]],opts:[]},{b:"제네시스",n:"G90 (약, 1억 원대 시작)",trims:[["기본",10000]],opts:[]},{b:"제네시스",n:"GV70",trims:[["가솔린",5473]],opts:[]},{b:"제네시스",n:"GV80",trims:[["2.5 터보 2WD",6790],["3.5 터보",7332]],opts:[]}];
 var EXT=["외장: 흰색","외장: 검정","외장: 은색","외장: 회색","외장: 청색"],INT=["내장: 블랙","내장: 베이지","내장: 그레이","내장: 브라운"];
 var manual=[];var curM=0;
 function fillTrims(){curM=document.getElementById("mdl").selectedIndex;var m=MODELS[curM],t=document.getElementById("trm");t.innerHTML=m.trims.map(function(x,i){return '<option value="'+i+'">'+x[0]+" — "+x[1].toLocaleString()+"만원</option>"}).join("");renderOpts()}
-function renderOpts(){var m=MODELS[curM],h="";m.opts.forEach(function(o,i){h+='<label class="opt"><input type="checkbox" class="copt" data-k="'+i+'" onchange="render()"'+(m.opts[i][2]?" checked":"")+'><span>'+o[0]+'</span><span class="op">+'+o[1].toLocaleString()+"만원</span></label>"});manual.forEach(function(o,i){h+='<label class="opt"><input type="checkbox" class="mopt" data-k="'+i+'" checked onchange="render()"><span>'+o[0]+'</span><span class="op">+'+o[1].toLocaleString()+'만원</span><span class="man" onclick="delOpt('+i+')">✕</span></label>'});document.getElementById("optBox").innerHTML=h||'<div class="note" style="margin:6px 0 0">이 모델의 공식 확인된 선택옵션이 없습니다 — 아래에서 직접 추가하세요</div>'}
-function addOpt(){var n=document.getElementById("optName").value.trim(),p=parseInt(document.getElementById("optPrice").value.replace(/[^0-9]/g,""),10);if(!n||!p){toast("옵션명과 금액(만원)을 입력하세요");return}manual.push([n,p]);document.getElementById("optName").value="";document.getElementById("optPrice").value="";renderOpts();render()}
+function renderOpts(){var m=MODELS[curM],h="";m.opts.forEach(function(o,i){h+='<label class="opt"><input type="checkbox" class="copt" data-k="'+i+'" onchange="render()"'+(m.opts[i][2]?" checked":"")+'><span>'+o[0]+'</span><span class="op">+'+won(o[1])+"원</span></label>"});manual.forEach(function(o,i){h+='<label class="opt"><input type="checkbox" class="mopt" data-k="'+i+'" checked onchange="render()"><span>'+o[0]+'</span><span class="op">+'+won(o[1])+'원</span><span class="man" onclick="delOpt('+i+')">✕</span></label>'});document.getElementById("optBox").innerHTML=h||'<div class="note" style="margin:6px 0 0">이 모델의 공식 확인된 선택옵션이 없습니다 — 아래에서 직접 추가하세요</div>'}
+function addOpt(){var n=document.getElementById("optName").value.trim(),p=parseInt(document.getElementById("optPrice").value.replace(/[^0-9]/g,""),10);if(!n||!p){toast("옵션명과 금액(원)을 입력하세요");return}manual.push([n,p]);document.getElementById("optName").value="";document.getElementById("optPrice").value="";renderOpts();render()}
 function delOpt(i){manual.splice(i,1);renderOpts();render()}
 function fmtMan(n){var m=Math.round(n),man=Math.floor(Math.abs(m)/10000),rest=Math.abs(m)%10000;return man?man+"만 "+String(rest).replace(/\B(?=(\d{3})+(?!\d))/g,","):String(rest).replace(/\B(?=(\d{3})+(?!\d))/g,",")}
 function won(n){return n.toLocaleString()}
-function optSum(){var s=0;document.querySelectorAll(".copt:checked").forEach(function(el){s+=MODELS[curM].opts[+el.dataset.k][1]});document.querySelectorAll(".mopt:checked").forEach(function(el){s+=manual[+el.dataset.k][1]});return s*10000}
+function optSum(){var s=0;document.querySelectorAll(".copt:checked").forEach(function(el){s+=MODELS[curM].opts[+el.dataset.k][1]});document.querySelectorAll(".mopt:checked").forEach(function(el){s+=manual[+el.dataset.k][1]});return s}
 function optList(){var a=[];document.querySelectorAll(".copt:checked").forEach(function(el){a.push(MODELS[curM].opts[+el.dataset.k][0])});document.querySelectorAll(".mopt:checked").forEach(function(el){a.push(manual[+el.dataset.k][0])});return a}
 function vals(){var m=MODELS[curM],tr=m.trims[document.getElementById("trm").selectedIndex],car=tr[1]*10000,osum=optSum(),base=car+osum,acq=Math.round(base*0.07),etc=500000,total=base+acq+etc,dp=document.getElementById("dp").value,rt=document.getElementById("rt").value,dep=Math.round(total*dp/100),la=total-dep,mi=Math.round(la*rt/100/12);return{mn:m.b+" "+m.n,tn:tr[0],car:car,osum:osum,ol:optList(),acq:acq,etc:etc,total:total,dp:dp,rt:rt,dep:dep,la:la,mi:mi,ext:document.getElementById("ext").value,int2:document.getElementById("int").value,cust:document.getElementById("cust").value||"고객"}}
 function sync(id){var el=document.getElementById(id);document.getElementById(id+"Lab").textContent=el.value+"%";document.getElementById(id+"Val").textContent=el.value+"%";el.style.setProperty("--p",((el.value-el.min)/(el.max-el.min)*100)+"%");render()}
